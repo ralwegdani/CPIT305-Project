@@ -31,7 +31,7 @@ public class BookingManager {
         try {
             // Check adult
             if (!passenger.isAdult())
-                return "ERROR: Passenger must be 18 or older to book a seat.";
+                return "ERROR: Passenger must be 18 or older to book a seat."; // Changing in price
 
             // Check flight exists
             if (!flightEconomySeats.containsKey(flightId))
