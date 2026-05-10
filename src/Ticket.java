@@ -31,7 +31,7 @@ public class Ticket {
 
     
     // ADD: ticket saves itself — better OOP than DB.saveTicket(ticket)
-    public void save() throws SQLException {
+    public void save() throws SQLException { // // Add instead of save - save() not neccecary in Ticket
         db.update(
             "INSERT INTO tickets (ticket_id, user_id, flight_id, seat_number, seat_type, price)" +
             " VALUES ('"  + ticketID        + "', "
