@@ -1,52 +1,83 @@
-
 import java.sql.*;
 
-class DB<T> {
-    private String url      = "jdbc:postgresql://db.rqmohzkdbsvuazdmzjkj.supabase.co:5432/postgres";
-    private String user     = "postgres";
-    private String password = "305ProjectAirline";
-    private static Statement  stmt;
-    private static Connection conn;
-    private static ResultSet  rs;
-    private static DB         db;
 
-    public DB() { init(); }
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+ class DB {
+    private String url = "jdbc:postgresql://db.rqmohzkdbsvuazdmzjkj.supabase.co:5432/postgres";
+    private String user = "postgres";
+    private String password = "305ProjectAirline";
+    private static Statement stmt;
+    private static Connection conn;
+    private static ResultSet rs;
+    private static boolean flag = false ;
+    private static DB db;
+
+
+
+    private DB() {
+     init();
+    }
 
     private void init() {
-        try {
-            conn = DriverManager.getConnection(url, user, password);
-            stmt = conn.createStatement();
-            // NOTE: do NOT call conn.close() here — stmt becomes unusable if you do
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    public static DB getInstance() {
-        if (db == null) {          // FIX: was checking a flag but never assigning db
-            db = new DB();
+
+            try {
+                conn = DriverManager.getConnection(url, user, password);
+                stmt = conn.createStatement();
+                flag = true;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public static DB getInstance() {
+        if(!flag) {
+           DB db = new DB();
         }
         return db;
+        }
+
+
+
+    public static void Add (String query ) {
+        try {
+
+            stmt.executeUpdate(query);
+        }catch(Exception e) {
+            e.fillInStackTrace();
+        }
+
     }
+    public static ResultSet retrive (String query) {
+        try {
+            rs = stmt.executeQuery(query);
 
-    // FIX: was missing VALUES keyword and had wrong SQL structure
-    public static void Add(Object o) throws SQLException {
-        User u = (User) o;
-        String query = "INSERT INTO users (email, f_name, l_name, passport_number) VALUES ('"
-                + u.getEmail()          + "', '"
-                + u.getF_name()         + "', '"
-                + u.getL_name()         + "', '"
-                + u.getPassportNumber() + "')";
-        stmt.executeUpdate(query);
-    }
+        } catch (Exception e) {
+            e.fillInStackTrace();
 
-
-    public static ResultSet retrive(String query) throws SQLException {
-        rs = stmt.executeQuery(query);
+        }
         return rs;
     }
+        public static void update (String update){
+            try {
 
-    public static synchronized void update(String update) throws SQLException {
-        stmt.executeUpdate(update);
-    }
+                stmt.executeUpdate(update);
+            } catch (Exception e) {
+                e.fillInStackTrace();
+            }
+
+        }
+        public static void close () {
+            try {
+
+                stmt.close();
+                conn.close();
+            } catch (Exception e) {
+                e.fillInStackTrace();
+            }
+        }
+
+
 }
