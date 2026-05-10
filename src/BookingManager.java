@@ -48,7 +48,13 @@ public class BookingManager {
                     String ticketId = UUID.randomUUID().toString();
                     Ticket ticket = new Ticket(ticketId, passenger, flightId,
                             seatNumber, "Economy", String.valueOf(economy.getPrice()));
-                    ticket.save(); // Add instead of save - save() not neccecary in Ticket
+                    DB.Add("INSERT INTO tickets (ticket_id, user_id, flight_id, seat_number, seat_type, price) VALUES ('"
+        + ticket.getTicketID()         + "', "
+        + ticket.getUser().getUserID() + ", '"
+        + ticket.getFlightId()         + "', '"
+        + ticket.getSeatNumber()       + "', '"
+        + ticket.getSeatType()         + "', '"
+        + ticket.getSeatPrice()        + "')"); // Add() instead of save() - save() not neccecary in Ticket class
                     System.out.println("[BOOKED] " + passenger.getF_name()
                             + " booked ECONOMY on " + flightId
                             + " | Remaining: " + (available - 1));
@@ -69,7 +75,13 @@ public class BookingManager {
                     String ticketId = UUID.randomUUID().toString();
                     Ticket ticket = new Ticket(ticketId, passenger, flightId,
                             seatNumber, "Business", String.valueOf(business.getPrice()));
-                    ticket.save(); // Add instead of save - save() not neccecary in Ticket
+                    DB.Add("INSERT INTO tickets (ticket_id, user_id, flight_id, seat_number, seat_type, price) VALUES ('"
+        + ticket.getTicketID()         + "', "
+        + ticket.getUser().getUserID() + ", '"
+        + ticket.getFlightId()         + "', '"
+        + ticket.getSeatNumber()       + "', '"
+        + ticket.getSeatType()         + "', '"
+        + ticket.getSeatPrice()        + "')"); // Add() instead of save() - save() not neccecary in Ticket class
                     System.out.println("[BOOKED] " + passenger.getF_name()
                             + " booked BUSINESS on " + flightId
                             + " | Remaining: " + (available - 1));
