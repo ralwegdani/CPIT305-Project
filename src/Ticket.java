@@ -28,20 +28,6 @@ public class Ticket {
     public String getSeatNumber() { return seatNumber; }
     public String getSeatType()   { return seatType; }
     public String getSeatPrice()  { return seatPrice; }
-
-    
-    // ADD: ticket saves itself — better OOP than DB.saveTicket(ticket)
-    public void save() throws SQLException { // // Add instead of save - save() not neccecary in Ticket
-        db.update(
-            "INSERT INTO tickets (ticket_id, user_id, flight_id, seat_number, seat_type, price)" +
-            " VALUES ('"  + ticketID        + "', "
-                         + user.getUserID() + ", '"
-                         + flightId         + "', '"
-                         + seatNumber       + "', '"
-                         + seatType         + "', '"
-                         + seatPrice        + "')"
-        );
-    }
     
     public boolean cancelTicket() throws SQLException {
         // FIX: original had a stray comma: "delete from tickets, where..."
