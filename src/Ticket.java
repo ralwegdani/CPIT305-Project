@@ -1,5 +1,6 @@
 
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class Ticket {
     private String ticketID;
@@ -28,6 +29,20 @@ public class Ticket {
     public String getSeatType()   { return seatType; }
     public String getSeatPrice()  { return seatPrice; }
 
+    
+    // ADD: ticket saves itself — better OOP than DB.saveTicket(ticket)
+    public void save() throws SQLException {
+        db.update(
+            "INSERT INTO tickets (ticket_id, user_id, flight_id, seat_number, seat_type, price)" +
+            " VALUES ('"  + ticketID        + "', "
+                         + user.getUserID() + ", '"
+                         + flightId         + "', '"
+                         + seatNumber       + "', '"
+                         + seatType         + "', '"
+                         + seatPrice        + "')"
+        );
+    }
+    
     public boolean cancelTicket() throws SQLException {
         // FIX: original had a stray comma: "delete from tickets, where..."
         db.update("DELETE FROM tickets WHERE ticket_id = '" + ticketID + "'");

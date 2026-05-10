@@ -40,24 +40,13 @@ class DB<T> {
         stmt.executeUpdate(query);
     }
 
-    // Saves a completed booking ticket to the DB
-    public static void saveTicket(Ticket t) throws SQLException {
-        String query = "INSERT INTO tickets (ticket_id, user_id, flight_id, seat_number, seat_type, price) VALUES ('"
-                + t.getTicketID()        + "', "
-                + t.getUser().getUserID() + ", '"
-                + t.getFlightId()        + "', '"
-                + t.getSeatNumber()      + "', '"
-                + t.getSeatType()        + "', '"
-                + t.getSeatPrice()       + "')";
-        stmt.executeUpdate(query);
-    }
 
     public static ResultSet retrive(String query) throws SQLException {
         rs = stmt.executeQuery(query);
         return rs;
     }
 
-    public static void update(String update) throws SQLException {
+    public static synchronized void update(String update) throws SQLException {
         stmt.executeUpdate(update);
     }
 }
