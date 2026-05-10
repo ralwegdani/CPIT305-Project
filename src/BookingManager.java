@@ -48,7 +48,7 @@ public class BookingManager {
                     String ticketId = UUID.randomUUID().toString();
                     Ticket ticket = new Ticket(ticketId, passenger, flightId,
                             seatNumber, "Economy", String.valueOf(economy.getPrice()));
-                    ticket.save();
+                    ticket.save(); // Add instead of save - save() not neccecary in Ticket
                     System.out.println("[BOOKED] " + passenger.getF_name()
                             + " booked ECONOMY on " + flightId
                             + " | Remaining: " + (available - 1));
@@ -69,7 +69,7 @@ public class BookingManager {
                     String ticketId = UUID.randomUUID().toString();
                     Ticket ticket = new Ticket(ticketId, passenger, flightId,
                             seatNumber, "Business", String.valueOf(business.getPrice()));
-                    ticket.save();
+                    ticket.save(); // Add instead of save - save() not neccecary in Ticket
                     System.out.println("[BOOKED] " + passenger.getF_name()
                             + " booked BUSINESS on " + flightId
                             + " | Remaining: " + (available - 1));
